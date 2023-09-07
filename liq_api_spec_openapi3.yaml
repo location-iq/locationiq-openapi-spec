@@ -3251,7 +3251,6 @@ components:
       description: 'Returned route ends at `any` or `last` coordinate. Accepted value: `any` (default), `last`.'
   responses:
     400Error:
-      summary: Bad Request
       description: Bad Request
       content:
         application/json:
@@ -3318,7 +3317,6 @@ components:
               value:
                 error: Unknown error - Please try again after some time
     400Error-search:
-      summary: Bad Request
       description: Bad Request
       content:
         application/json:
@@ -3493,7 +3491,6 @@ components:
                     <error>Unknown error - Please try again after some time</error>
                 </searchresults>
     400Error-reverse:
-      summary: Bad Request
       description: Bad Request
       content:
         application/json:
@@ -3668,7 +3665,6 @@ components:
                     <error>Unknown error - Please try again after some time</error>
                 </reversegeocode>
     400Error-routing:
-      summary: Bad Request
       description: Bad Request
       content:
         application/json:
