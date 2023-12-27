@@ -979,7 +979,7 @@ paths:
       operationId: balance
       tags:
         - Balance
-      description: 'The Balance API provides a count of request credits left in the user''s account for the day. Balance is reset at midnight UTC everyday (00:00 UTC).'
+      description: 'The Balance API provides a count of request credits left in the user's account for the day. Balance is reset at midnight UTC every day (00:00 UTC).'
       responses:
         '200':
           description: OK
@@ -1742,7 +1742,7 @@ components:
             description: Formatted address for display.
           display_place:
             type: string
-            description: 'Only the name part of the address; if the `type` is a `city`, just the city''s name. If the `type` is `highway`, just the road''s name. This is helpful when a client library wants to display this information separately.'
+            description: 'Only the name part of the address; if the `type` is a `city`, just the city's name. If the `type` is `highway`, just the road's name. This is helpful when a client library wants to display this information separately.'
           display_address:
             type: string
             description: The complete address without the text already present in `display_place`
@@ -2631,7 +2631,7 @@ components:
       description: |-
         Output Format. Defaults to xml. 
 
-        > This version (v1) of our Reverse Geocoding API is compatible with OpenStreetMap''s Nominatim Geocoder in both JSON & XML formats. However, all our enhancements such as additional datasets and algorithms are supported only in `json` or `xmlv1.1` format options.
+        > This version (v1) of our Reverse Geocoding API is compatible with OpenStreetMap's Nominatim Geocoder in both JSON & XML formats. However, all our enhancements such as additional datasets and algorithms are supported only in `json` or `xmlv1.1` format options.
     accept-language:
       name: accept-language
       in: query
@@ -2825,7 +2825,7 @@ components:
       required: false
       schema:
         type: string
-      description: 'If this parameter is not specified, LocationIQ uses multiple public and proprietary datasets to return results. If you''d like to restrict results to only OpenStreetMap data, you can set the value of this parameter to `nom`. This will only query our internal cluster of Nominatim servers, and return results. We may still apply some post-processing steps to these results though, so results may vary from the official Nominatim instance.'
+      description: 'If this parameter is not specified, LocationIQ uses multiple public and proprietary datasets to return results. If you'd like to restrict results to only OpenStreetMap data, you can set the value of this parameter to `nom`. This will only query our internal cluster of Nominatim servers, and return results. We may still apply some post-processing steps to these results though, so results may vary from the official Nominatim instance.'
     postalcode:
       name: postalcode
       in: query
@@ -2943,7 +2943,7 @@ components:
         example: 'place:city'
       description: |-
         Restricts results to specific types of elements. This can be used to return only administrative areas - such as towns or cities - or specific Points of Interest such as schools or restaurants. 
-        This is defined as key value pairs of `class` and `type` values based on OpenStreetMap''s (OSM) <a href="https://wiki.openstreetmap.org/wiki/Map_Features" target="_blank">exhaustive list</a>. 
+        This is defined as key value pairs of `class` and `type` values based on OpenStreetMap's (OSM) <a href="https://wiki.openstreetmap.org/wiki/Map_Features" target="_blank">exhaustive list</a>. 
         Multiple `class` and `type` values can be specified as a comma-separated list.<br/><br/>
         Examples:<ul><li>To return only cities: `tag=place:city`</li><li>To return only types of `place`, such as Suburbs, Towns and Cities, use a wildcard: `tag=place:*`</li><li>To restrict results to specific types of `place`: `tag=place:city,place:town,place:village`</li><li>To restrict results to cafes: `tag=amenity:cafe`</ul> '
     tag-nearby:
@@ -3283,7 +3283,7 @@ components:
               value:
                 error: Access restricted
     404Error:
-      description: No location or places were found for the given input
+      description: No location or places were found for the given input.
       content:
         application/json:
           schema:
@@ -3293,7 +3293,7 @@ components:
               value:
                 error: Unable to geocode
     429Error:
-      description: Request exceeded the rate-limits set on your account
+      description: Request exceeded the rate-limits set on your account.
       content:
         application/json:
           schema:
