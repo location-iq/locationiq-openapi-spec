@@ -972,6 +972,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/lat'
         - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/timestamp'
       security:
         - key: []
   /balance:
@@ -3251,6 +3252,14 @@ components:
       schema:
         type: string
       description: 'Returned route ends at `any` or `last` coordinate. Accepted value: `any` (default), `last`.'
+    timestamp:
+      name: timestamp
+      in: query
+      schema:
+        type: number
+        example: 1701179610
+      description: 'The desired time as seconds since midnight, January 1, 1970 UTC. Used to specify a particular point in time for which you want to retrieve time zone information. It allows you to convert a specific timestamp to the corresponding time zone information, including the time offset from UTC and the time zone name'
+      allowEmptyValue: true
   responses:
     400Error:
       description: Bad Request
