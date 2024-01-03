@@ -1120,7 +1120,7 @@ components:
           type: string
           x-stoplight:
             id: 7nunw3epqpcqo
-          description: The name of an ocean or sea, if the location falls within a body of water outside any country's administrative regions.
+          description: 'The name of an ocean or sea, if the location falls within a body of water outside any country''s administrative regions.'
       x-examples:
         Example 1:
           house_number: '3894'
@@ -3258,7 +3258,7 @@ components:
       schema:
         type: number
         example: 1701179610
-      description: 'The desired time as seconds since midnight, January 1, 1970 UTC. Used to specify a particular point in time for which you want to retrieve time zone information. It allows you to convert a specific timestamp to the corresponding time zone information, including the time offset from UTC and the time zone name'
+      description: 'Represents the time in Unix Epoch format, calculated as the number of seconds since midnight on January 1, 1970, UTC. Determines whether Daylight Saving Time applies at the specific time and for the location’s time zone.'
       allowEmptyValue: true
   responses:
     400Error:
