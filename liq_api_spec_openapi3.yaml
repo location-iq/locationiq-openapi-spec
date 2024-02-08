@@ -516,8 +516,30 @@ paths:
     parameters: []
   /lookup:
     get:
+      operationId: lookup
       summary: Lookup
-      tags: []
+      description: 'The lookup API allows querying the address and other details of one or multiple OSM objects, such as nodes, ways, or relations.'
+      tags:
+        - Lookup
+      security:
+        - key: []
+      parameters:
+        - $ref: '#/components/parameters/osm_ids'
+        - $ref: '#/components/parameters/json_callback'
+        - $ref: '#/components/parameters/addressdetails-default-1'
+        - $ref: '#/components/parameters/extratags'
+        - $ref: '#/components/parameters/namedetails'
+        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/polygon_geojson'
+        - $ref: '#/components/parameters/polygon_kml'
+        - $ref: '#/components/parameters/polygon_svg'
+        - $ref: '#/components/parameters/polygon_text'
+        - $ref: '#/components/parameters/polygon_threshold'
+        - $ref: '#/components/parameters/normalizeaddress'
+        - $ref: '#/components/parameters/normalizecity'
+        - $ref: '#/components/parameters/postaladdress'
+        - $ref: '#/components/parameters/statecode'
+        - $ref: '#/components/parameters/format-only-json'
       responses:
         '200':
           description: OK
@@ -574,29 +596,8 @@ paths:
           $ref: '#/components/responses/404Error'
         '500':
           $ref: '#/components/responses/500Error'
-      operationId: lookup
       x-stoplight:
-        id: cs3acyi1na2iz
-      description: 'The lookup API allows querying the address and other details of one or multiple OSM objects, such as nodes, ways, or relations.'
-      security:
-        - key: []
-      parameters:
-        - $ref: '#/components/parameters/osm_ids'
-        - $ref: '#/components/parameters/json_callback'
-        - $ref: '#/components/parameters/addressdetails-default-1'
-        - $ref: '#/components/parameters/extratags'
-        - $ref: '#/components/parameters/namedetails'
-        - $ref: '#/components/parameters/accept-language'
-        - $ref: '#/components/parameters/polygon_geojson'
-        - $ref: '#/components/parameters/polygon_kml'
-        - $ref: '#/components/parameters/polygon_svg'
-        - $ref: '#/components/parameters/polygon_text'
-        - $ref: '#/components/parameters/polygon_threshold'
-        - $ref: '#/components/parameters/normalizeaddress'
-        - $ref: '#/components/parameters/normalizecity'
-        - $ref: '#/components/parameters/postaladdress'
-        - $ref: '#/components/parameters/statecode'
-        - $ref: '#/components/parameters/format-only-json'
+        id: a26654ef9fd16
   '/directions/{profile}/{coordinates}':
     get:
       operationId: Directions
