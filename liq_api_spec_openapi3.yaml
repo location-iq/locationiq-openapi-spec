@@ -37,6 +37,7 @@ paths:
         - $ref: '#/components/parameters/polygon_svg'
         - $ref: '#/components/parameters/polygon_text'
         - $ref: '#/components/parameters/json_callback'
+        - $ref: '#/components/parameters/polygon_threshold'
       responses:
         '200':
           description: OK
@@ -353,6 +354,7 @@ paths:
         - $ref: '#/components/parameters/polygon_kml'
         - $ref: '#/components/parameters/polygon_svg'
         - $ref: '#/components/parameters/polygon_text'
+        - $ref: '#/components/parameters/polygon_threshold'
       responses:
         '200':
           description: OK
@@ -512,6 +514,89 @@ paths:
         id: h45btk8xk9epc
       summary: Autocomplete
     parameters: []
+  /lookup:
+    get:
+      summary: Lookup
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lookup'
+              examples:
+                response:
+                  value:
+                    place_id: 115462561
+                    licence: 'https://locationiq.com/attribution'
+                    osm_type: way
+                    osm_id: 50637691
+                    boundingbox:
+                      - '52.3994612'
+                      - '52.3996426'
+                      - '13.0479574'
+                      - '13.0481754'
+                    lat: '52.399550700000006'
+                    lon: '13.048066846939687'
+                    display_name: 'Brandenburger Tor, Brandenburger Straße, Historische Innenstadt, Innenstadt, Potsdam, Brandenburg, 14467, Germany'
+                    class: tourism
+                    type: attraction
+                    importance: 0.2940287400552381
+                    address:
+                      tourism: Brandenburger Tor
+                      road: Brandenburger Straße
+                      suburb: Historische Innenstadt
+                      city: Potsdam
+                      state: Brandenburg
+                      postcode: '14467'
+                      country: Germany
+                      country_code: de
+                    extratags:
+                      image: 'http://commons.wikimedia.org/wiki/File:Potsdam_brandenburger_tor.jpg'
+                      heritage: '4'
+                      wikidata: Q695045
+                      architect: Carl von Gontard;Georg Christian Unger
+                      wikipedia: 'de:Brandenburger Tor (Potsdam)'
+                      wheelchair: 'yes'
+                      description: Kleines Brandenburger Tor in Potsdam
+                      'heritage:website': 'http://www.bldam-brandenburg.de/images/stories/PDF/DML%202012/04-p-internet-13.pdf'
+                      'heritage:operator': bldam
+                      'architect:wikidata': Q68768;Q95223
+                      year_of_construction: '1771'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '403':
+          $ref: '#/components/responses/403Error'
+        '404':
+          $ref: '#/components/responses/404Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+      operationId: lookup
+      x-stoplight:
+        id: cs3acyi1na2iz
+      description: 'The lookup API allows querying the address and other details of one or multiple OSM objects, such as nodes, ways, or relations.'
+      security:
+        - key: []
+      parameters:
+        - $ref: '#/components/parameters/osm_ids'
+        - $ref: '#/components/parameters/json_callback'
+        - $ref: '#/components/parameters/addressdetails-default-1'
+        - $ref: '#/components/parameters/extratags'
+        - $ref: '#/components/parameters/namedetails'
+        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/polygon_geojson'
+        - $ref: '#/components/parameters/polygon_kml'
+        - $ref: '#/components/parameters/polygon_svg'
+        - $ref: '#/components/parameters/polygon_text'
+        - $ref: '#/components/parameters/polygon_threshold'
+        - $ref: '#/components/parameters/normalizeaddress'
+        - $ref: '#/components/parameters/normalizecity'
+        - $ref: '#/components/parameters/postaladdress'
+        - $ref: '#/components/parameters/statecode'
+        - $ref: '#/components/parameters/format-only-json'
   '/directions/{profile}/{coordinates}':
     get:
       operationId: Directions
@@ -2515,6 +2600,83 @@ components:
       description: Returns address specifically formatted for each country. Returned when `postaladdress` is set in the request
       x-examples:
         Example 1: '5, Avenue Anatole France, 75007, Paris, France'
+    lookup:
+      type: object
+      x-examples:
+        Example 1:
+          place_id: 115462561
+          licence: 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright'
+          osm_type: way
+          osm_id: 50637691
+          boundingbox:
+            - '52.3994612'
+            - '52.3996426'
+            - '13.0479574'
+            - '13.0481754'
+          lat: '52.399550700000006'
+          lon: '13.048066846939687'
+          display_name: 'Brandenburger Tor, Brandenburger Straße, Historische Innenstadt, Innenstadt, Potsdam, Brandenburg, 14467, Germany'
+          class: tourism
+          type: attraction
+          address:
+            tourism: Brandenburger Tor
+            road: Brandenburger Straße
+            suburb: Historische Innenstadt
+            city: Potsdam
+            state: Brandenburg
+            postcode: '14467'
+            country: Germany
+            country_code: de
+          extratags:
+            image: 'http://commons.wikimedia.org/wiki/File:Potsdam_brandenburger_tor.jpg'
+            heritage: '4'
+            wikidata: Q695045
+            architect: Carl von Gontard;Georg Christian Unger
+            wikipedia: 'de:Brandenburger Tor (Potsdam)'
+            wheelchair: 'yes'
+            description: Kleines Brandenburger Tor in Potsdam
+            'heritage:website': 'http://www.bldam-brandenburg.de/images/stories/PDF/DML%202012/04-p-internet-13.pdf'
+            'heritage:operator': bldam
+            'architect:wikidata': Q68768;Q95223
+            year_of_construction: '1771'
+      properties:
+        place_id:
+          type: integer
+          description: Unique identifier for the place.
+        licence:
+          type: string
+          description: License information for the data.
+        osm_type:
+          type: string
+          description: Type of OpenStreetMap object.
+        osm_id:
+          type: integer
+          description: Unique identifier for the OpenStreetMap object.
+        boundingbox:
+          type: array
+          description: 'List of bounding box coordinates [min_lat, max_lat, min_lon, max_lon].'
+          items:
+            type: string
+        lat:
+          type: string
+          description: Latitude of the location.
+        lon:
+          type: string
+          description: |
+            Longitude of the location.
+        display_name:
+          type: string
+          description: Formatted address for display.
+        class:
+          type: string
+          description: Categorization of map features based on their nature.
+        type:
+          type: string
+          description: It denotes the specific kind of feature within a class.
+        address:
+          $ref: '#/components/schemas/address'
+        extratags:
+          $ref: '#/components/schemas/extratags'
   parameters:
     query:
       name: q
@@ -2909,9 +3071,9 @@ components:
       schema:
         type: integer
         enum:
-          - '0'
-          - '1'
-        default: '0'
+          - 0
+          - 1
+        default: 0
       description: 'Sometimes you have several objects in OSM identifying the same place or object in reality. The simplest case is a street being split in many different OSM ways due to different characteristics. Our Geocoder will attempt to detect such duplicates and only return one match; this is controlled by the dedupe parameter which defaults to `0`. Since the limit is, for reasons of efficiency, enforced before and not after de-duplicating, it is possible that de-duplicating leaves you with less results than requested.'
     dedupe-default-1:
       name: dedupe
@@ -2920,9 +3082,9 @@ components:
       schema:
         type: integer
         enum:
-          - '0'
-          - '1'
-        default: '1'
+          - 0
+          - 1
+        default: 1
       description: 'Sometimes you have several objects in OSM identifying the same place or object in reality. The simplest case is a street being split in many different OSM ways due to different characteristics. Our Geocoder will attempt to detect such duplicates and only return one match; this is controlled by the dedupe parameter which defaults to `1`. Since the limit is, for reasons of efficiency, enforced before and not after de-duplicating, it is possible that de-duplicating leaves you with less results than requested.'
     importancesort:
       name: importancesort
@@ -2931,9 +3093,9 @@ components:
       schema:
         type: integer
         enum:
-          - '0'
-          - '1'
-        default: '1'
+          - 0
+          - 1
+        default: 1
       description: 'Determines whether results are sorted by their individual `importance` values. If `importancesort=0` and is used along with the `viewbox` parameter, results are sorted only by distance. Defaults to `1`.'
     tag:
       name: tag
@@ -3260,6 +3422,30 @@ components:
         example: 1701179610
       description: 'Represents the time in Unix Epoch format, calculated as the number of seconds since midnight on January 1, 1970, UTC. Determines whether Daylight Saving Time applies at the specific time and for the location’s time zone.'
       allowEmptyValue: true
+    osm_ids:
+      name: osm_ids
+      in: query
+      required: true
+      schema:
+        type: string
+        example: 'R146656,W104393803,N240109189'
+      description: 'This must contain a comma-separated list of OSM ids each prefixed with its type, one of node(N), way(W) or relation(R). Up to 3 ids can be queried at the same time.'
+    polygon_threshold:
+      name: polygon_threshold
+      in: query
+      required: false
+      schema:
+        type: number
+        example: 0.2
+        default: 0
+      description: 'When one of the polygon_* outputs is chosen, return a simplified version of the output geometry. The parameter describes the tolerance in degrees with which the geometry may differ from the original geometry. Topology is preserved in the geometry.'
+    format-only-json:
+      name: format
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Output Format. Only `json` supported as of now.
   responses:
     400Error:
       description: Bad Request
