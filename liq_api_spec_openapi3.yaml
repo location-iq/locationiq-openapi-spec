@@ -1039,6 +1039,7 @@ paths:
                       now_in_dst: 0
                       offset_sec: 19800
                       short_name: IST
+                      full_name: India Standard Time
         '400':
           $ref: '#/components/responses/400Error'
         '401':
@@ -2576,6 +2577,7 @@ components:
             now_in_dst: 0
             offset_sec: 19800
             short_name: IST
+            full_name: India Standard Time
       properties:
         timezone:
           type: object
@@ -2592,7 +2594,13 @@ components:
               description: The offset from `UTC` (in seconds) for the given location. Considers `DST` savings.
             short_name:
               type: string
-              description: Short name of the Timezone.
+              description: 'Time zone abbreviation, usually 3 or 4 letters (e.g., "EDT" for Eastern Daylight Time, "CEST" for Central European Summer Time). In some cases, especially for locations without standardized abbreviations, it may be a numeric UTC offset (e.g., "+03" or "+0330").'
+            full_name:
+              type: string
+              x-stoplight:
+                id: 1qb7hcby2gwow
+              description: 'Complete, descriptive name of the time zone, e.g. "Pacific Daylight Time" or "Central European Standard Time". For some locations (e.g., oceans) where such a name is unavailable, it is returned in the format of GMT±HH:MM (e.g., GMT+03:30).'
+      description: ''
     postaladdress:
       title: postaladdress
       x-stoplight:
