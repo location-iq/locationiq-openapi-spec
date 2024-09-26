@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.0
+  version: 1.5.1
   title: LocationIQ - API reference
   description: 'LocationIQ provides flexible enterprise-grade location based solutions. We work with developers, startups and enterprises worldwide serving billions of requests everyday. This page provides an overview of the technical aspects of our API and will help you get started.'
   contact:
@@ -2585,7 +2585,7 @@ components:
           properties:
             name:
               type: string
-              description: Timezone name of the Location.
+              description: 'Timezone identifier, compatible with the IANA Tz Database. Typically in the format "Area/Location" (e.g., "America/New_York", "Europe/Paris"), but can also include ocean areas (e.g., "Atlantic/Azores") and special administrative zones (e.g., "Etc/UTC", "Etc/GMT-14"). We always return the most current identifier (e.g., "Asia/Kolkata", not "Asia/Calcutta"). Note that "Etc/GMT" zones use POSIX-style signs, opposite to ISO 8601 convention (e.g., "Etc/GMT-14" is 14 hours ahead of GMT).'
             now_in_dst:
               type: integer
               description: Represents whether the zone currently observing `DST` or not.
@@ -2600,7 +2600,6 @@ components:
               x-stoplight:
                 id: 1qb7hcby2gwow
               description: 'Complete, descriptive name of the time zone, e.g. "Pacific Daylight Time" or "Central European Standard Time". For some locations (e.g., oceans) where such a name is unavailable, it is returned in the format of GMT±HH:MM (e.g., GMT+03:30).'
-      description: ''
     postaladdress:
       title: postaladdress
       x-stoplight:
@@ -3429,7 +3428,7 @@ components:
       schema:
         type: number
         example: 1701179610
-      description: 'Represents the time in Unix Epoch format, calculated as the number of seconds since midnight on January 1, 1970, UTC. Determines whether Daylight Saving Time applies at the specific time and for the location’s time zone.'
+      description: 'Unix epoch time in seconds (number of seconds since January 1, 1970, 00:00:00 UTC). Defaults to current time if omitted. This parameter allows retrieval of time zone information for specific moments, which is useful for handling Daylight Saving Time changes and ensuring correct time zone offsets for historical data or future event scheduling.'
       allowEmptyValue: true
     osm_ids:
       name: osm_ids
