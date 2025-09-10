@@ -457,7 +457,8 @@ paths:
         - $ref: '#/components/parameters/bounded'
         - $ref: '#/components/parameters/json_callback'
         - $ref: '#/components/parameters/normalizecity'
-        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/accept-language-autocomplete'
+        - $ref: '#/components/parameters/statecode'
         - $ref: '#/components/parameters/importancesort'
         - $ref: '#/components/parameters/dedupe-default-0'
       responses:
@@ -2817,6 +2818,23 @@ components:
         To use native language for the response when available, use `accept-language=native`. 
 
         Either uses standard <a href="https://tools.ietf.org/html/rfc2616#section-14.4" target="_blank">rfc2616 accept-language string</a> or a simple comma separated list of language codes.
+    accept-language-autocomplete:
+      name: accept-language
+      in: query
+      required: false
+      schema:
+        type: string
+        default: en
+        example: en
+      description: |-
+        Preferred language order for showing search results, overrides the value specified in the `Accept-Language` HTTP header. Defaults to `en`. 
+
+        Accepts a simple comma separated list of the supported language codes.      
+        To use native language for the response when available, use `accept-language=native`. 
+        
+        The Autocomplete endpoint currently supports the following languages: English `en`, Czech `cs`, Dutch `nl`, French `fr`, German `de`, Indonesian `id`, Italian `it`, Norwegian `no`, Polish `pl`, Spanish `es`, Russian `ru`, Swedish `sv` and Ukrainian `uk`. 
+        
+        If you'd like us to add support for a specific language, please reach out.
     namedetails:
       name: namedetails
       in: query
@@ -2938,7 +2956,7 @@ components:
           - 0
           - 1
         default: 0
-      description: 'Adds state or province code when available to the `state_code` key inside the `address` object. Currently supported for addresses in the USA, Canada and Australia. Defaults to `0`.'
+      description: 'Adds state or province code when available to the `state_code` key inside the `address` object when available. Defaults to `0`.'
     showdistance:
       name: showdistance
       in: query
@@ -3114,9 +3132,20 @@ components:
         example: 'place:city'
       description: |-
         Restricts results to specific types of elements. This can be used to return only administrative areas - such as towns or cities - or specific Points of Interest such as schools or restaurants. 
+        
         This is defined as key value pairs of `class` and `type` values based on OpenStreetMap''s (OSM) <a href="https://wiki.openstreetmap.org/wiki/Map_Features" target="_blank">exhaustive list</a>. 
-        Multiple `class` and `type` values can be specified as a comma-separated list.<br/><br/>
-        Examples:<ul><li>To return only cities: `tag=place:city`</li><li>To return only types of `place`, such as Suburbs, Towns and Cities, use a wildcard: `tag=place:*`</li><li>To restrict results to specific types of `place`: `tag=place:city,place:town,place:village`</li><li>To restrict results to cafes: `tag=amenity:cafe`</ul> '
+        
+        Multiple `class` and `type` values can be specified as a comma-separated list.
+        
+        **Examples:**
+          - To return only cities: `tag=place:city`
+          - To return only types of `place`, such as Suburbs, Towns and Cities, use a wildcard: `tag=place:*`
+          - To restrict results to specific types of `place`: `tag=place:city,place:town,place:village`
+          - To restrict results to cafes: `tag=amenity:cafe`
+          - To restrict results to all types except those with amenity as class: `tag=!amenity:*`
+          - To restrict results to only the amenity class except gym: `tag=amenity:*,!amenity:gym`
+          - To restrict results to all types except elements with amenity as class and gym as type: `tag=!amenity:gym`
+
     tag-nearby:
       name: tag
       in: query
