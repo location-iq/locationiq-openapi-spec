@@ -729,18 +729,8 @@ paths:
       x-stoplight:
         id: q2676upx3kwy3
     parameters:
-      - name: profile
-        in: path
-        required: true
-        schema:
-          type: string
-        description: 'Mode of transportation. Only `driving` is supported at the moment. '
-      - name: coordinates
-        in: path
-        required: true
-        schema:
-          type: string
-        description: 'String of format `{longitude},{latitude};{longitude},{latitude}[;{longitude},{latitude} ...]` or `polyline({polyline}) or polyline6({polyline6})`. <br> You can send up to a maximum of `25` coordinate pairs per request (except `Nearest API` where `coordinates` only supports a single {longitude},{latitude} entry)'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/coordinates'
   '/matching/{profile}/{coordinates}':
     get:
       operationId: Matching
@@ -3410,7 +3400,10 @@ components:
       schema:
         type: string
         example: driving
-      description: 'Mode of transportation. Only `driving` is supported at the moment. '
+        enum:
+          - driving
+          - walking
+      description: 'Mode of transportation. `driving` and `walking` are supported. '
     service:
       name: service
       in: query
