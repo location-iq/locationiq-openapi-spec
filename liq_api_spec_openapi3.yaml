@@ -452,6 +452,7 @@ paths:
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/countrycodes'
         - $ref: '#/components/parameters/tag'
+        - $ref: '#/components/parameters/layers-autocomplete'
         - $ref: '#/components/parameters/limit-max-20'
         - $ref: '#/components/parameters/viewbox'
         - $ref: '#/components/parameters/bounded'
@@ -3135,6 +3136,30 @@ components:
           - To restrict results to all types except those with amenity as class: `tag=!amenity:*`
           - To restrict results to only the amenity class except gym: `tag=amenity:*,!amenity:gym`
           - To restrict results to all types except elements with amenity as class and gym as type: `tag=!amenity:gym`
+
+    layers-autocomplete:
+      name: layers
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 'state,country'
+      description: |-
+        Restricts results to specific layers on the Autocomplete API.
+
+        Multiple layer values can be specified as a comma-separated list.
+        Values are case-insensitive and extra spaces are ignored.
+        Unsupported values are ignored.
+
+        **Supported values:** `road`, `neighbourhood`, `suburb`, `city`, `county`, `state`, `country`, `postcode`
+
+        **Note:** `layers=postcode` applies a postal-code-only filter only when it is the sole layer and `tag` is not set. If `tag` is set, `tag` filtering is preserved and `postcode` in `layers` is ignored.
+
+        **Examples:**
+          - To return only states: `layers=state`
+          - To return only countries: `layers=country`
+          - To return states and countries: `layers=state,country`
+          - To return postal code records: `layers=postcode`
 
     tag-nearby:
       name: tag
