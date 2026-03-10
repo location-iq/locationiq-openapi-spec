@@ -917,7 +917,7 @@ paths:
       - $ref: '#/components/parameters/coordinates'
   /nearby:
     get:
-      summary: Nearby - Points of Interest (PoI) (Public BETA)
+      summary: Nearby - Places (Public BETA)
       tags:
         - Nearby
       responses:
@@ -1000,7 +1000,9 @@ paths:
       x-stoplight:
         id: gpol02h04m5pb
       description: |-
-        The Nearby API returns Points of Interest (PoI) such as cafes, hospitals or even airports near a specified location.
+        The Nearby API returns nearby places around a specified location.
+
+        Results can include points of interest such as cafes, hospitals, and airports, as well as place-level features such as cities, depending on the requested `tag`.
 
         Note: The Nearby API endpoint is presently in BETA. The request or response format may change without notice. While we don't expect to remove any elements, there will be additions.
       parameters:
@@ -3169,15 +3171,16 @@ components:
         type: string
         example: 'amenity:school'
       description: |-
-        You can use a `tag` to restrict your results on the Nearby API. We support two types of tags, a single-word format for common use-cases and key-value pairs for advanced use-cases.
+        You can use a `tag` to restrict Nearby API results to specific types of places. We support two types of tags: a single-word format for common use-cases and key-value pairs for advanced use-cases.
 
         ### 1. Single-word Format (Simple)
         For most use-cases, the list of tags below should suffice. Multiple tags can be specified as a comma-separated list.
 
         Tag             | Description
         ----------------| -----------
-        all             | Return a list of all PoIs
+        all             | Return a list of all places
         airport         | List of airports
+        city            | List of nearby cities
         restaurant      | List of restaurants
         bank            | List of banks
         atm             | List of ATMs
@@ -3200,11 +3203,13 @@ components:
         parking         | List of parking
         cardealer       | List of car dealers
 
+
         ### 2. Key Value Format (Advanced)
         For advanced use-cases that need additional tags not present in the table above, we also support tags based on OpenStreetMap''s (OSM)  <a href="https://wiki.openstreetmap.org/wiki/Map_Features" target="_blank">exhaustive list</a> of tags. These tags are represented as key-value pairs of `class` and `type` values. Multiple `class` and `type` values can be specified as a comma-separated list.
 
         **Examples:** 
-        * To return a list of all PoIs: tag=all
+        * To return a list of all places: tag=all
+        * To return city records: tag=place:city
         * To return records with amenity class (e.g., restaurants, hospitals, banks): tag=amenity:*
         * To return records with the amenity class and school as type (i.e., a list of schools): tag=amenity:school
         * To return all records except those with amenity as class: tag=all,!amenity:*
@@ -3258,10 +3263,14 @@ components:
         type: integer
         default: 100
         minimum: 1
-        maximum: 30000
+        maximum: 500000
       description: |-
         Radius (in meters) from the given latitude and longitude to search for results in.
-        Accepted value: `1` to `30000`. Defaults to `100`.
+        Accepted value: `1` to `500000`. Defaults to `100`.
+
+        Note: Nearby API results are matched using each result's associated location point, not the full boundary or area of the result. A result is returned only when the search radius reaches that point.
+
+        For example, a search near outer London may not return `London` until the radius is large enough to reach London's associated location point, even if part of the wider London area is already within the search radius.
     alternatives:
       name: alternatives
       in: query
