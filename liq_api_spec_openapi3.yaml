@@ -1011,6 +1011,7 @@ paths:
         - $ref: '#/components/parameters/tag-nearby'
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/limit-max-50'
+        - $ref: '#/components/parameters/dedupe-default-0'
       security:
         - key: []
   /timezone:
@@ -3093,7 +3094,7 @@ components:
           - 0
           - 1
         default: 0
-      description: 'Sometimes you have several objects in OSM identifying the same place or object in reality. The simplest case is a street being split in many different OSM ways due to different characteristics. Our Geocoder will attempt to detect such duplicates and only return one match; this is controlled by the dedupe parameter which defaults to `0`. Since the limit is, for reasons of efficiency, enforced before and not after de-duplicating, it is possible that de-duplicating leaves you with less results than requested.'
+      description: When enabled, the geocoder attempts to filter out duplicate results for the same real-world place. Because `limit` is applied before deduplication, fewer results than requested may be returned.
     dedupe-default-1:
       name: dedupe
       in: query
